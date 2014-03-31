@@ -11,7 +11,7 @@ name        = 'pulsar'
 def play(voice_id):
     tel = bot.getTel()
 
-    if 'sparse' in tel['name'] or 'ballsout' in tel['name'] and dsp.rand(0, 100) > 70:
+    if 'sparse' in tel['name'] or 'ballsout' in tel['name'] and dsp.rand(0, 100) > 5:
         dsp.log('')
         dsp.log(voice_id + ' pulsar silent')
         bot.show_telemetry(tel)
@@ -102,9 +102,14 @@ def play(voice_id):
         minplen     = 5
         maxplen     = 80
 
-    mod = dsp.wavetable(mod, 512)
-    window = dsp.wavetable(window, 512)
-    waveform = dsp.wavetable(waveform, 512)
+    #mod = dsp.wavetable(mod, 512)
+    mod = dsp.breakpoint([ dsp.rand() for b in range(int(round(tel['density'])) + 3) ], 512)
+
+    #window = dsp.wavetable(window, 512)
+    window = dsp.breakpoint([0] + [ dsp.rand() for b in range(int(round(tel['harmonicity'] * 2)) + 3) ] + [0], 512)
+
+    #waveform = dsp.wavetable(waveform, 512)
+    waveform = dsp.breakpoint([0] + [ dsp.rand(-1, 1) for b in range(int(round(tel['roughness'] * 3)) + 3) ] + [0], 512)
 
     pc = dsp.breakpoint([ dsp.rand(0, 1) for i in range(int(dsp.rand(5, numgrains))) ], numgrains)
 
@@ -115,6 +120,7 @@ def play(voice_id):
     bar = dsp.randint(4, 8)
 
     dobeats = tel['density'] > 5 and dsp.rand(0, 100) > 20
+    dobeats = False
 
     if dobeats:
         numbeats = bar * dsp.randint(3, 7)
@@ -183,4 +189,5 @@ def play(voice_id):
     bot.show_telemetry(tel)
 
     return out
+    #return ''
 

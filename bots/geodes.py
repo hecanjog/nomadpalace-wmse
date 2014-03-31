@@ -127,14 +127,19 @@ def run(gens, tick):
             dsp.delay(dsp.stf(dsp.rand(2, 20)))
 
             if dsp.rand(0, 100) > 50:
-                if dsp.rand(0, 100) > 40:
+                if dsp.rand(0, 100) > 80:
                     voice_id, generator_name = settings.add_voice('pp re qu')
                     dsp.log('')
                     dsp.log('starting pulsar voice %s' % voice_id)
-                else:
+                elif dsp.rand(0, 100) > 50:
                     voice_id, generator_name = settings.add_voice('ch re qu')
                     dsp.log('')
                     dsp.log('starting chirp voice %s' % voice_id)
+                else:
+                    voice_id, generator_name = settings.add_voice('bo re qu')
+                    dsp.log('')
+                    dsp.log('starting boone voice %s' % voice_id)
+
 
                 playback_process = mp.Process(name=voice_id, target=rt.out, args=(gens[generator_name], tick))
                 playback_process.start()
@@ -145,7 +150,7 @@ def run(gens, tick):
                 dsp.log('stopping voice %s' % voice_id)
                 settings.voice(voice_id, 'loop', 0)
 
-    for w in range(15):
+    for w in range(20):
         # Spawn worker
         worker_process = mp.Process(name='worker', target=worker, args=(gens, tick))
         worker_process.start()
