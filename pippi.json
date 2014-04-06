@@ -1,14 +1,14 @@
 {
     "a0": 27.5, 
     "session": "pippi.session", 
-    "name": "rotate_concourse", 
+    "name": "wmse", 
     "quality": "major", 
     "sounds": "sounds/", 
     "orc": "orc/", 
     "snapshots": "snapshots/",
     "root": "b", 
-    "shortname": "rot", 
+    "shortname": "wmse", 
     "bpm": 80.0, 
-    "device": "T6_pair1",
+    "device": "default",
     "tune": "terry"
 }

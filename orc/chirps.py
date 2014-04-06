@@ -1,6 +1,6 @@
 from pippi import dsp
 from pippic import settings as s
-import geodes as bot
+import orange as bot
 
 shortname   = 'ch'
 name        = 'chirp'

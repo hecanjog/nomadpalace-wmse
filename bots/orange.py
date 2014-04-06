@@ -3,8 +3,6 @@ from pippic import settings
 from pippic import rt
 from termcolor import colored
 import multiprocessing as mp
-import pulsar
-import chirps
 import json
 import time
 
@@ -16,7 +14,7 @@ roughness: smooth - rough
 pace: slow - fast
 """
 
-dsp.log('loaded geodes bot')
+dsp.log('loaded wmse bot')
 
 def mc(r, numpoints):
     numlands = dsp.randint(5, 20)
@@ -73,14 +71,7 @@ def make_telemetry():
             'harmonicity': (8, 10),
             'roughness': (2, 4),
             'pace': (4, 7)
-        }, {
-            'name': ['upbeat'],
-            'register': (5, 8),
-            'density': (1, 8),
-            'harmonicity': (8, 10),
-            'roughness': (2, 4),
-            'pace': (4, 7)
-        },
+        }
     ]
 
     dsp.log('generating telemetry...')
@@ -114,7 +105,6 @@ def make_telemetry():
                 sections += transition_section
                 sections += next_section
 
-
     dsp.log('telemetry generated')
     settings.shared('tel', sections)
 
@@ -123,15 +113,11 @@ def run(gens, tick):
     started = time.time()
 
     def worker(gens, tick):
-        while time.time() < started + (60 * 15):
+        while time.time() < started + (60 * 14):
             dsp.delay(dsp.stf(dsp.rand(2, 20)))
 
-            if dsp.rand(0, 100) > 50:
+            if dsp.rand(0, 100) > 60:
                 if dsp.rand(0, 100) > 80:
-                    voice_id, generator_name = settings.add_voice('pp re qu')
-                    dsp.log('')
-                    dsp.log('starting pulsar voice %s' % voice_id)
-                elif dsp.rand(0, 100) > 50:
                     voice_id, generator_name = settings.add_voice('ch re qu')
                     dsp.log('')
                     dsp.log('starting chirp voice %s' % voice_id)
@@ -150,7 +136,7 @@ def run(gens, tick):
                 dsp.log('stopping voice %s' % voice_id)
                 settings.voice(voice_id, 'loop', 0)
 
-    for w in range(20):
+    for w in range(10):
         # Spawn worker
         worker_process = mp.Process(name='worker', target=worker, args=(gens, tick))
         worker_process.start()
