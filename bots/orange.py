@@ -14,7 +14,7 @@ roughness: smooth - rough
 pace: slow - fast
 """
 
-dsp.log('loaded wmse bot')
+dsp.log('loaded orange bot')
 
 def mc(r, numpoints):
     numlands = dsp.randint(5, 20)
@@ -113,14 +113,20 @@ def run(gens, tick):
     started = time.time()
 
     def worker(gens, tick):
-        while time.time() < started + (60 * 14):
+        while time.time() < started + (60 * 12.5):
             dsp.delay(dsp.stf(dsp.rand(2, 20)))
 
             if dsp.rand(0, 100) > 60:
-                if dsp.rand(0, 100) > 80:
+                v = dsp.rand(0, 100)
+
+                if v > 65:
                     voice_id, generator_name = settings.add_voice('ch re qu')
                     dsp.log('')
                     dsp.log('starting chirp voice %s' % voice_id)
+                elif v > 35:
+                    voice_id, generator_name = settings.add_voice('bi re qu')
+                    dsp.log('')
+                    dsp.log('starting bird voice %s' % voice_id)
                 else:
                     voice_id, generator_name = settings.add_voice('bo re qu')
                     dsp.log('')

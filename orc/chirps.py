@@ -70,7 +70,7 @@ def play(voice_id):
 
             speeds = dsp.breakpoint([ dsp.rand(tel['register'] * 0.1 + 0.2, tel['register'] + 0.2) for i in range(100) ], ngrains)
 
-            c = [ dsp.transpose(cg, speeds[i]) for i, cg in enumerate(c) ]
+            #c = [ dsp.transpose(cg, speeds[i]) for i, cg in enumerate(c) ]
             #c = [ dsp.amp(cg, dsp.rand(0.25, 1.25)) for i, cg in enumerate(c) ]
 
             for ic, cc in enumerate(c):
@@ -98,7 +98,7 @@ def play(voice_id):
                 if dsp.flen(cc) < dsp.mstf(100):
                     c[ic] = cc + ''.join([ dsp.amp(cc, dsp.rand(0.1, 1.0)) for buh in range(dsp.randint(1, int(tel['density']))) ])
 
-            c = [ dsp.transpose(cg, speeds[i]) for i, cg in enumerate(c) ]
+            #c = [ dsp.transpose(cg, speeds[i]) for i, cg in enumerate(c) ]
             c = [ dsp.pan(cg, dsp.rand(0.0, 1.0)) for i, cg in enumerate(c) ]
 
         if 'ballsout' not in tel['name']:

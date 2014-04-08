@@ -117,10 +117,10 @@ def run(gens, tick):
             dsp.delay(dsp.stf(dsp.rand(2, 20)))
 
             if dsp.rand(0, 100) > 60:
-                if dsp.rand(0, 100) > 80:
-                    voice_id, generator_name = settings.add_voice('dr re qu')
+                if dsp.rand(0, 100) > 60:
+                    voice_id, generator_name = settings.add_voice('sh re qu')
                     dsp.log('')
-                    dsp.log('starting drone voice %s' % voice_id)
+                    dsp.log('starting shimmer voice %s' % voice_id)
                 else:
                     voice_id, generator_name = settings.add_voice('dr re qu')
                     dsp.log('')
